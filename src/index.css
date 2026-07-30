@@ -1,0 +1,134 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Cormorant Garamond', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #05050a;
+  --color-ink-soft: #0b0b12;
+  --color-gold: #c9a349;
+  --color-gold-light: #e8c37a;
+  --color-gold-pale: #f3e3bd;
+  --color-bone: #e9e4d9;
+  --color-ash: #8a867e;
+}
+
+@layer base {
+  html {
+    background: #05050a;
+    color: #e9e4d9;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: #c9a349;
+    color: #05050a;
+  }
+
+  /* Lenis owns the scroll position; native smooth scrolling would fight it. */
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  /* Tracked-out 10px type needs more luminance than body copy to stay readable. */
+  color: #b3ada1;
+}
+
+@utility rule-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(201 163 73 / 0.55), transparent);
+}
+
+@utility line-mask {
+  overflow: hidden;
+  display: block;
+}
+
+/* Per-character reveal target; GSAP animates these directly. */
+.char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/*
+ * Legibility scrim. Type sits over a live 3D render whose brightness we cannot
+ * predict, so every copy block gets its own local pool of darkness rather than
+ * relying on one page-wide overlay that would flatten the scene.
+ */
+.scrim {
+  position: relative;
+  isolation: isolate;
+}
+
+.scrim::before {
+  content: '';
+  position: absolute;
+  inset: -10% -14%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    72% 68% at 38% 50%,
+    rgb(4 4 6 / 0.9) 0%,
+    rgb(4 4 6 / 0.72) 45%,
+    rgb(4 4 6 / 0) 100%
+  );
+}
+
+/* Display type gets a shadow instead of a box, so the render stays visible. */
+.on-render {
+  text-shadow:
+    0 1px 26px rgb(4 4 6 / 0.95),
+    0 1px 6px rgb(4 4 6 / 0.85);
+}
+
+/*
+ * On a phone the flacon occupies most of the frame no matter how far the camera
+ * pulls back, so a soft radial pool is not enough. Copy blocks become near-solid
+ * panels instead — a deliberate mobile treatment rather than a scaled-down
+ * desktop one.
+ */
+.scrim-mobile {
+  position: relative;
+  isolation: isolate;
+}
+
+@media (max-width: 900px) {
+  .scrim::before,
+  .scrim-mobile::before {
+    content: '';
+    position: absolute;
+    inset: -5% -6%;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgb(4 4 6 / 0.88) 0%, rgb(4 4 6 / 0.94) 100%);
+    backdrop-filter: blur(3px);
+  }
+}
+
+/* Motion here is decorative — honour the OS switch. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
