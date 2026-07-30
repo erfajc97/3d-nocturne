@@ -25,7 +25,9 @@ const SHOTS: Keyframe[] = [
   { at: 0.46, position: [-3.1, 0.35, 3.3], target: [0, 0.1, 0], fov: 33, bias: 0.45 },
   { at: 0.62, position: [1.0, -0.62, 2.7], target: [0, -0.25, 0], fov: 40, bias: 0.35 },
   { at: 0.78, position: [3.0, 0.6, 4.6], target: [0, 0.15, 0], fov: 30, bias: 0.5 },
-  { at: 1.0, position: [0, 0.2, 8.6], target: [0, 0.05, 0], fov: 27, bias: 0.0 },
+  // Finale keeps some bias: dead-centre put the flacon straight behind the
+  // purchase panel, and a bright glass body under a spec table is unreadable.
+  { at: 1.0, position: [0, 0.2, 8.6], target: [0, 0.05, 0], fov: 27, bias: 0.5 },
 ]
 
 const smoothstep = (t: number) => t * t * (3 - 2 * t)

@@ -24,8 +24,10 @@ const BARS: Bar[] = [
   { position: [1.4, 2.25, -2.2], rotation: [0, 0.22, -0.34], length: 6.4, color: '#fff4dd', from: -0.2, to: 0.55 },
   { position: [2.6, 1.05, -3.0], rotation: [0.1, -0.3, 0.82], length: 5.0, color: '#ffe6b8', from: -0.2, to: 0.66 },
   { position: [1.1, -1.55, -1.4], rotation: [0, 0.12, 0.05], length: 4.6, color: '#f7d9a0', from: 0.12, to: 0.82 },
-  { position: [-2.9, 1.55, -1.2], rotation: [0.3, 0.9, 1.3], length: 3.8, color: '#ffffff', from: 0.36, to: 1.2 },
-  { position: [2.9, -0.5, -1.1], rotation: [-0.2, -0.8, 1.18], length: 3.4, color: '#ffdca8', from: 0.54, to: 1.2 },
+  // These two fade before the finale. Once the camera pulls back they drift into
+  // frame as thick defocused streaks that read as artefacts, not lighting.
+  { position: [-2.9, 1.55, -1.2], rotation: [0.3, 0.9, 1.3], length: 3.8, color: '#ffffff', from: 0.36, to: 0.9 },
+  { position: [2.9, -0.5, -1.1], rotation: [-0.2, -0.8, 1.18], length: 3.4, color: '#ffdca8', from: 0.54, to: 0.94 },
 ]
 
 export function LightBars() {

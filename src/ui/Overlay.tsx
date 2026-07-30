@@ -391,7 +391,10 @@ function Acquire() {
             </p>
           </div>
 
-          <div className="scrim md:col-span-5 md:col-start-8">
+          {/* A real panel, not a scrim. A spec table has to be legible outright,
+              and this is the one block that always lands over the flacon. */}
+          <div className="md:col-span-5 md:col-start-8">
+            <div className="border border-bone/12 bg-ink/88 p-6 backdrop-blur-md md:p-8">
             <dl data-reveal className="divide-y divide-bone/12 border-y border-bone/12">
               {[
                 ['Formato', '50 ml · Extrait'],
@@ -432,6 +435,7 @@ function Acquire() {
             <p data-reveal className="eyebrow mt-5 leading-relaxed">
               Quedan 63 de 400 · Envío desde Grasse
             </p>
+            </div>
           </div>
         </div>
       </Reveal>
